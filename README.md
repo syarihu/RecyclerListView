@@ -1,6 +1,13 @@
 # RecyclerListView
 RecyclerListView is a view for displaying the list in RecyclerView.
 
+# Sample
+## Screenshot
+<img src="https://user-images.githubusercontent.com/5127846/34683364-2f79a64c-f4e5-11e7-9359-659ccdd37dfa.png" width=300 />
+
+## Source code
+https://github.com/syarihu/RecyclerListView/tree/master/sample
+
 # LICENSE
 ```
 Copyright (c) 2018 Taichi Sato
