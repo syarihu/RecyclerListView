@@ -39,7 +39,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:text="株価情報・更新: 1分前"
+                android:text="Stocks・Updated 1 min ago"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/more"
                 app:layout_constraintLeft_toRightOf="@+id/icon"
@@ -92,7 +92,7 @@
                 tools:visibility="visible" />
 
             <RelativeLayout
-                android:id="@+id/loadMore"
+                android:id="@+id/showMore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
@@ -117,7 +117,7 @@
                     android:layout_toEndOf="@+id/arrow_down"
                     android:layout_toRightOf="@+id/arrow_down"
                     android:gravity="center_vertical"
-                    android:text="もっと見る" />
+                    android:text="Show more" />
             </RelativeLayout>
 
 

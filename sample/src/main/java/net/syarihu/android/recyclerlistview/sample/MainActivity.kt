@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
             )
             holder.binding.run {
                 recyclerListView.adapter = adapter
-                loadMore.setOnClickListener {
+                showMore.setOnClickListener {
                     recyclerListView.adapter?.run {
                         listLimit = 0
                         notifyDataSetChanged()
@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
                     View.GONE
                 }
                 dividerEnd.visibility = visibility
-                loadMore.visibility = visibility
+                showMore.visibility = visibility
             }
         }
 
