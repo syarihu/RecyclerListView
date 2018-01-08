@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline_left"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="16dp" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline_top"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="4dp" />
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:layout_constraintBottom_toBottomOf="@+id/more"
+                app:layout_constraintLeft_toRightOf="@+id/guideline_left"
+                app:layout_constraintTop_toTopOf="@+id/more"
+                app:srcCompat="@mipmap/ic_launcher" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="株価情報・更新: 1分前"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/more"
+                app:layout_constraintLeft_toRightOf="@+id/icon"
+                app:layout_constraintRight_toLeftOf="@+id/more"
+                app:layout_constraintTop_toTopOf="@+id/more" />
+
+            <FrameLayout
+                android:id="@+id/more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline_top">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:srcCompat="@drawable/ic_more_vert_24dp" />
+            </FrameLayout>
+
+            <View
+                android:id="@+id/divider_start"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/gray"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/more" />
+
+            <net.syarihu.android.library.recyclerlistview.RecyclerListView
+                android:id="@+id/recyclerListView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:divider="@color/gray"
+                app:layout_constraintTop_toBottomOf="@+id/divider_start"
+                app:limit="3"
+                tools:visibility="gone" />
+
+            <View
+                android:id="@+id/divider_end"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/gray"
+                android:visibility="gone"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerListView"
+                tools:visibility="visible" />
+
+            <RelativeLayout
+                android:id="@+id/loadMore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:padding="8dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/divider_end"
+                tools:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/arrow_down"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:srcCompat="@drawable/ic_keyboard_arrow_down_24dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/arrow_down"
+                    android:layout_alignTop="@+id/arrow_down"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_toEndOf="@+id/arrow_down"
+                    android:layout_toRightOf="@+id/arrow_down"
+                    android:gravity="center_vertical"
+                    android:text="もっと見る" />
+            </RelativeLayout>
+
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+</layout>
