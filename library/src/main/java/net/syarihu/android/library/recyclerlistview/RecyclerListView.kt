@@ -5,14 +5,15 @@ import android.database.Observable
 import android.graphics.Color
 import android.support.v4.util.LongSparseArray
 import android.util.AttributeSet
-import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
-import net.syarihu.android.recyclerlistview.R
 
+/**
+ * View for displaying the list in RecyclerView.
+ */
 class RecyclerListView : LinearLayout {
     private val dividerSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1f, resources.displayMetrics).toInt()
     private val listItemCache = LongSparseArray<View>()
@@ -30,6 +31,9 @@ class RecyclerListView : LinearLayout {
             field = value
         }
 
+    /**
+     * When an adapter change is notified, the change is reflected in View.
+     */
     fun onAdapterChanged(adapter: Adapter) {
         listLimit = adapter.listLimit
         val diff = adapter.getCount() - listItemCache.size()
@@ -70,6 +74,11 @@ class RecyclerListView : LinearLayout {
         initialize(attrs)
     }
 
+    /**
+     * Initialize RecyclerListView.
+     *
+     * @param attrs AttributeSet
+     */
     private fun initialize(attrs: AttributeSet? = null) {
         attrs?.let {
             context.obtainStyledAttributes(attrs, R.styleable.RecyclerListView).run {
@@ -81,6 +90,11 @@ class RecyclerListView : LinearLayout {
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
     }
 
+    /**
+     * Initialize RecyclerListView.Adapter
+     *
+     * @param adapter Adapter to be initialized
+     */
     private fun initAdapter(adapter: Adapter) {
         if (adapter.listLimit < 1 && listLimit > 0) {
             adapter.listLimit = listLimit
@@ -100,6 +114,11 @@ class RecyclerListView : LinearLayout {
         adapter.notifyDataSetChanged()
     }
 
+    /**
+     * Generates divider view and returns it.
+     *
+     * @return Divider View
+     */
     private fun createDividerView(): View {
         return View(context).apply {
             layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, dividerSize)
@@ -107,6 +126,10 @@ class RecyclerListView : LinearLayout {
         }
     }
 
+    /**
+     * If list size is larger than listLimit, listLimit is returned.
+     * If listLimit is 0, the size of the list is returned.
+     */
     private fun LongSparseArray<View>.limit(): Int {
         return if (listLimit == 0) {
             size()
@@ -119,8 +142,16 @@ class RecyclerListView : LinearLayout {
         }
     }
 
-    fun isLimit(): Boolean = listLimit > 0 && listItemCache.limit() != listItemCache.size()
+    /**
+     * Returns true if the size of the list is limited by listLimit.
+     */
+    fun isLimit(): Boolean {
+        return listLimit > 0 && listItemCache.limit() != listItemCache.size()
+    }
 
+    /**
+     * Adapter for implementing list items of RecyclerListView.
+     */
     abstract class Adapter {
         var listLimit: Int = 0
             set(value) {
@@ -128,20 +159,61 @@ class RecyclerListView : LinearLayout {
                 notifyDataSetChanged()
             }
         private val observable = AdapterDataObservable()
+        /**
+         * Generate a View of a list item.
+         *
+         * @param position Position of list item
+         * @param viewGroup ViewGroup
+         */
         abstract fun createView(position: Int, viewGroup: ViewGroup?): View
+
+        /**
+         * Bind the data to the View of the list item.
+         *
+         * @param position Position of list item
+         * @param view View to bind data to
+         */
         abstract fun bindView(position: Int, view: View): View
+
+        /**
+         * Get the data of the list item.
+         *
+         * @param position Position of list item
+         */
         abstract fun getItem(position: Int): Any
+
+        /**
+         * Get the id of the list item.
+         *
+         * @param position Position of list item
+         */
         abstract fun getItemId(position: Int): Long
+
+        /**
+         * Gets the number of items to display in the list.
+         */
         abstract fun getCount(): Int
+
+        /**
+         * Notify Observer of changes.
+         */
         fun notifyDataSetChanged() {
             observable.notifyChanged()
         }
 
+        /**
+         * Register the Observer to receive change notifications.
+         *
+         * @param observer AdapterDataObserver
+         */
         fun registerObserver(observer: AdapterDataObserver) {
             observable.registerObserver(observer)
         }
     }
 
+    /**
+     * Observable for receiving data changes.
+     */
     private class AdapterDataObservable : Observable<AdapterDataObserver>() {
         fun notifyChanged() {
             for (i in mObservers.indices.reversed()) {
@@ -150,6 +222,9 @@ class RecyclerListView : LinearLayout {
         }
     }
 
+    /**
+     * Observer for receiving data changes.
+     */
     interface AdapterDataObserver {
         fun onChanged()
     }
