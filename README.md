@@ -8,6 +8,11 @@ RecyclerListView is a view for displaying the list in RecyclerView.
 ## Source code
 https://github.com/syarihu/RecyclerListView/tree/master/sample
 
+# Setup
+```
+implementation 'net.syarihu.android.library:RecyclerListView:0.1.0'
+```
+
 # LICENSE
 ```
 Copyright (c) 2018 Taichi Sato
